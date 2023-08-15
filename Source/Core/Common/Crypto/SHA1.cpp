@@ -38,17 +38,17 @@ public:
   ContextMbed()
   {
     mbedtls_sha1_init(&ctx);
-    ASSERT(!mbedtls_sha1_starts(&ctx));
+    mbedtls_sha1_starts(&ctx);
   }
   ~ContextMbed() { mbedtls_sha1_free(&ctx); }
   virtual void Update(const u8* msg, size_t len) override
   {
-    ASSERT(!mbedtls_sha1_update(&ctx, msg, len));
+    mbedtls_sha1_update(&ctx, msg, len);
   }
   virtual Digest Finish() override
   {
     Digest digest;
-    ASSERT(!mbedtls_sha1_finish(&ctx, digest.data()));
+	mbedtls_sha1_finish(&ctx, digest.data());
     return digest;
   }
   virtual bool HwAccelerated() const override { return false; }
